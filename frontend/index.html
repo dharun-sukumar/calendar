@@ -6,15 +6,80 @@
     <title>Calendar</title>
     <link rel="stylesheet" href="style.css" />
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
-</head>
-<body>
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
+    />
+  </head>
+  <body class="font-thin">
     <!-- navbar -->
-    <nav class="flex">
-        <span class="material-symbols-outlined">
-            menu
+    <!-- div1 -->
+    <nav class="flex p-2 items-center justify-between">
+      <div class="flex items-center">
+        <span
+          class="material-symbols-outlined p-3 ml-2 hover:bg-slate-100 rounded-full"
+        >
+          menu
+        </span>
+        <img
+          src="./assets/calendar_4_2x.png"
+          alt="logo"
+          height="44px"
+          width="40px"
+          class="ml-1"
+        />
+        <div class="text-[22px] ml-2 mr-12">Calendar</div>
+      </div>
+      <!-- end of div1 -->
+
+      <!-- div2 -->
+      <div class="flex items-center justify-between w-[80%]">
+        <div class="flex items-center">
+          <button
+            class="flex items-center pl-4 pr-4 pt-2 pb-2 rounded-md border text-sm font-medium"
+          >
+            Today
+          </button>
+          <span class="material-symbols-outlined mr-2 ml-6">
+            chevron_left
+          </span>
+          <span class="material-symbols-outlined"> chevron_right </span>
+          <span class="ml-6 text-2xl mr-1" id="month"></span>
+          <span class="text-2xl" id="year"></span>
+        </div>
+
+        <div class="flex items-center">
+          <span class="material-symbols-outlined p-3"> search </span>
+          <span class="material-symbols-outlined p-3"> help </span>
+          <span class="material-symbols-outlined p-3"> settings </span>
+          <div class="flex items-center justify-center border rounded-md ml-2">
+            <div class="pl-3 rounded-md text-sm">Month</div>
+            <span class="material-symbols-outlined pt-1 pr-2 pl-2 pb-1"> arrow_drop_down </span>
+          </div>
+
+          <div class="flex items-center ml-4">
+            <span class="material-symbols-outlined pt-1 pb-1 pl-3 pr-3 border rounded-l-md">
+              calendar_month
             </span>
+            <span class="material-symbols-outlined pt-1 pb-1 pl-3 pr-3 border rounded-r-md">
+              check_circle
+            </span>
+          </div>
+        </div>
+      </div>
+      <!-- end of div2 -->
+
+      <!-- div3 -->
+      <div class="flex items-center">
+        <span
+          class="material-symbols-outlined p-3 rounded-full hover:bg-slate-100"
+        >
+          apps
+        </span>
+        <span class="material-symbols-outlined p-3"> account_circle </span>
+      </div>
     </nav>
+    <!-- end of div3 -->
     <!-- end of navbar -->
     <script src="script.js"></script>
   </body>
