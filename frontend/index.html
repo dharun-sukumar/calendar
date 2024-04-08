@@ -54,14 +54,20 @@
           <span class="material-symbols-outlined p-3"> settings </span>
           <div class="flex items-center justify-center border rounded-md ml-2">
             <div class="pl-3 rounded-md text-sm">Month</div>
-            <span class="material-symbols-outlined pt-1 pr-2 pl-2 pb-1"> arrow_drop_down </span>
+            <span class="material-symbols-outlined pt-1 pr-2 pl-2 pb-1">
+              arrow_drop_down
+            </span>
           </div>
 
           <div class="flex items-center ml-4">
-            <span class="material-symbols-outlined pt-1 pb-1 pl-3 pr-3 border rounded-l-md">
+            <span
+              class="material-symbols-outlined pt-1 pb-1 pl-3 pr-3 border rounded-l-md"
+            >
               calendar_month
             </span>
-            <span class="material-symbols-outlined pt-1 pb-1 pl-3 pr-3 border rounded-r-md">
+            <span
+              class="material-symbols-outlined pt-1 pb-1 pl-3 pr-3 border rounded-r-md"
+            >
               check_circle
             </span>
           </div>
@@ -79,8 +85,45 @@
         <span class="material-symbols-outlined p-3"> account_circle </span>
       </div>
     </nav>
+    <hr />
     <!-- end of div3 -->
     <!-- end of navbar -->
+
+    <!-- start of sidebar -->
+    <div class="flex flex-col w-[265px] border-r-2">
+      <div
+        class="flex p-3 drop-shadow-md gap-4 border rounded-full w-[160px] m-3"
+      >
+        <span class="material-symbols-outlined"> add </span>
+        <div>Create</div>
+        <span class="material-symbols-outlined"> arrow_drop_down </span>
+      </div>
+
+      <!-- calendar  -->
+      <div class="calendar-container flex flex-col font-medium ml-6 mr-6">
+        <header class="flex items-center justify-between">
+          <p class="calendar-current-date ml-3 mr-3"></p>
+          <div class="flex calendar-navigation">
+            <span class="material-symbols-outlined" id="calendar-prev"> chevron_left </span>
+
+            <span class="material-symbols-outlined" id="calendar-next"> chevron_right </span>
+          </div>
+        </header>
+
+        <div class="calendar-body text-[10px]">
+          <ul class="calendar-weekdays">
+            <li>S</li>
+            <li>M</li>
+            <li>T</li>
+            <li>W</li>
+            <li>T</li>
+            <li>F</li>
+            <li>S</li>
+          </ul>
+          <ul class="calendar-dates"></ul>
+        </div>
+      </div>
+    </div>
     <script src="script.js"></script>
   </body>
 </html>
