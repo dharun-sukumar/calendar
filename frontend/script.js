@@ -44,9 +44,6 @@ const manipulate = () => {
     // Get the last date of the month
     let lastdate = new Date(year, month + 1, 0).getDate();
 
-    // Get the day of the last date of the month
-    let dayend = new Date(year, month, lastdate).getDay();
-
     // Get the last date of the previous month
     let monthlastdate = new Date(year, month, 0).getDate();
 
@@ -86,7 +83,6 @@ const manipulate = () => {
     // with the formatted current month and year
     currdate.innerText = `${months[month]} ${year}`;
 
-    // update the HTML of the dates element 
     // with the generated calendar
     day.innerHTML = lit;
 }
@@ -120,7 +116,7 @@ prenexIcons.forEach(icon => {
         else {
 
             // Set the date to the current date
-            date = new Date();
+            date = new Date();  
         }
 
         // Call the manipulate function to 
@@ -128,3 +124,72 @@ prenexIcons.forEach(icon => {
         manipulate();
     });
 });
+
+const button = document.getElementById('today-button'); // Replace 'your-button-id' with the actual ID of your button
+
+// Assign the setToToday function to the button's click event
+
+const setToToday = () => {
+    let today = new Date();
+    year = today.getFullYear();
+    month = today.getMonth();
+    date = today.getDate();
+    manipulate(); // Call the manipulate function to update the calendar
+}
+
+button.addEventListener('click', setToToday);
+
+    
+const calendar = document.getElementById('calendar');
+
+const drawBlankCalendar = () => {
+    for (let i = 0; i < 35; i++) {
+        const day = document.createElement('div');
+        day.classList.add('day');
+
+        const dayText = document.createElement('p');
+        dayText.classList.add('day-text');
+
+        const dayNumber = document.createElement('p');
+        dayNumber.classList.add('day-number');
+
+        const eventName = document.createElement('small');
+        eventName.classList.add('event-name');
+
+        day.appendChild(dayText);
+        day.appendChild(dayNumber);
+        day.appendChild(eventName);
+        calendar.appendChild(day);
+    }
+}
+
+drawBlankCalendar();
+
+const manipulate1 = () => {
+    const dayElements = document.querySelectorAll('.day');
+    const date = new Date();
+    const firstDayOfMonth = new Date(date.getFullYear(), date.getMonth(), 1).getDay();
+    const daysInMonth = new Date(date.getFullYear(), date.getMonth() + 1, 0).getDate();
+    const daysInLastMonth = new Date(date.getFullYear(), date.getMonth(), 0).getDate();
+
+    let dayCount = 1;
+    let nextMonthDayCount = 1;
+
+    for (let i = 0; i < 35; i++) {
+        const day = dayElements[i];
+        const dayNumber = day.querySelector('.day-number');
+        const eventName = day.querySelector('.event-name');
+
+        if (i < firstDayOfMonth) {
+            dayNumber.textContent = daysInLastMonth - firstDayOfMonth + i + 1;
+            eventName.textContent = '';
+        } else if (i >= firstDayOfMonth && i < firstDayOfMonth + daysInMonth) {
+            dayNumber.textContent = dayCount++;
+            eventName.textContent = '';
+            dayNumber.textContent = nextMonthDayCount++;
+            eventName.textContent = '';
+        }
+    }
+}
+
+manipulate1();

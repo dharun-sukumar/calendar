@@ -7,7 +7,12 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-}
+    -moz-user-select: none;
+    -khtml-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+  }
 
 body {
     font-family: 'Google Sans', sans-serif;
@@ -17,6 +22,9 @@ body {
     border-right: 2px solid black ;
 }
  
+.calendar {
+    height: 100%;
+}
  
 .calendar-body ul {
     list-style: none;
@@ -73,3 +81,110 @@ body {
 .today {
     background-color: #ff0;
 }
+
+/* Path: frontend/style.css */
+
+/* li {
+    border: 2px solid black;
+} */
+
+.days li {
+    border: 1px solid #f2f2f2;
+}
+
+.wrapper{
+    width: 100%;
+    background: #fff;
+    border-radius: 10px;
+  }
+  .wrapper header{
+    display: flex;
+    /* align-items: center; */
+    /* justify-content: space-between; */
+  }
+  header .icons{
+    display: flex;
+  }
+  header .icons span{
+    height: 38px;
+    width: 38px;
+    cursor: pointer;
+    color: #878787;
+    text-align: center;
+    line-height: 38px;
+    font-size: 1.9rem;
+    user-select: none;
+    border-radius: 50%;
+  }
+  header .icons span:hover{
+    background: #f2f2f2;
+  }
+  header .current-date{
+    font-size: 1.45rem;
+    font-weight: 500;
+  }
+
+  .calendar ul{
+    display: flex;
+    flex-wrap: wrap;
+    list-style: none;
+    text-align: center;
+  }
+
+  .calendar li{
+    color: #333;
+    width: calc(100% / 7);
+    font-size: 1.07rem;
+    padding: 0  58px 58px 58px;
+  }
+  .calendar .weeks li{
+    font-weight: 500;
+    cursor: default;
+  }
+  .calendar .days li{
+    z-index: 1;
+    cursor: pointer;
+    position: relative;
+  }
+  .days li.inactive{
+    color: #aaa;
+  }
+  .days li.active{
+    color: #fff;
+  }
+  .days li::before{
+    position: absolute;
+    content: "";
+    left: 50%;
+    top: 50%;
+    height: 40px;
+    width: 40px;
+    z-index: -1;
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+  }
+  .days li.active::before{
+    background: #9B59B6;
+  }
+  .days li:not(.active):hover::before{
+    background: #f2f2f2;
+  }
+
+
+
+
+  #calendar {
+    display: grid;
+    grid-template-columns: repeat(7, 184px);
+    height: 92vh;
+  }
+
+  .day {
+    width: 100%;
+    height: 100%;
+    border: 1px solid #aaa;
+  }
+
+  .day-number {
+    text-align: center;
+  }
