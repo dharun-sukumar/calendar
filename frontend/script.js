@@ -186,6 +186,7 @@ const manipulate1 = () => {
         } else if (i >= firstDayOfMonth && i < firstDayOfMonth + daysInMonth) {
             dayNumber.textContent = dayCount++;
             eventName.textContent = '';
+        } else {
             dayNumber.textContent = nextMonthDayCount++;
             eventName.textContent = '';
         }
