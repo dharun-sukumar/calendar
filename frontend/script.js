@@ -137,10 +137,26 @@ function changeMonth(increment) {
     updateMonthAndYear(year, month); // Pass year and month as parameters
 }
 
+function changeMiniMonth(increment) {
+    month += increment;
+    if (month > 11) {
+        month = 0;
+        year++;
+    } else if (month < 0) {
+        month = 11;
+        year--;
+    }
+    date.setFullYear(year);
+    date.setMonth(month);
+    generateCalendar();
+}
+
 function setupEventListeners() {
     document.getElementById('today-button').addEventListener('click', setToToday);
     document.getElementById('nxt').addEventListener('click', () => changeMonth(1));
     document.getElementById('prev').addEventListener('click', () => changeMonth(-1));
+    document.getElementById('calendar-prev').addEventListener('click', () => changeMiniMonth(-1));
+    document.getElementById('calendar-next').addEventListener('click', () => changeMiniMonth(+1));
 }
 
 updateMonthAndYear(year, month);
