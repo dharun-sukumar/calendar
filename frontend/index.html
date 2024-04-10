@@ -34,17 +34,17 @@
 
       <!-- div2 -->
       <div class="flex items-center justify-between w-[80%]">
-        <div class="flex items-center">
+        <div class="flex items-center cursor-pointer">
           <button
-            class="flex items-center pl-4 pr-4 pt-2 pb-2 rounded-md border text-sm font-medium"
+            class="flex items-center pl-4 pr-4 pt-2 pb-2 rounded-md border text-sm font-medium cursor-pointer"
             id="today-button"
           >
             Today
           </button>
-          <span class="material-symbols-outlined mr-2 ml-6">
+          <span class="material-symbols-outlined mr-2 ml-6 cursor-pointer nav" id="prev">
             chevron_left
           </span>
-          <span class="material-symbols-outlined"> chevron_right </span>
+          <span class="material-symbols-outlined nxt cursor-pointer nav" id="nxt"> chevron_right </span>
           <span class="ml-6 text-2xl mr-1" id="month"></span>
           <span class="text-2xl" id="year"></span>
         </div>
@@ -55,7 +55,7 @@
           <span class="material-symbols-outlined p-3"> settings </span>
           <div class="flex items-center justify-center border rounded-md ml-2">
             <div class="pl-3 rounded-md text-sm">Month</div>
-            <span class="material-symbols-outlined pt-1 pr-2 pl-2 pb-1">
+            <span class="material-symbols-outlined pt-1 pr-2 pl-2 pb-1 cursor-pointer">
               arrow_drop_down
             </span>
           </div>
@@ -132,7 +132,7 @@
       <!-- End of sidebar -->
 
       <!-- start of main content -->
-      <div id="calendar"></div>
+      <div id="calendar" class="text-sm"></div>
       <div class="flex flex-col h-[92vh] w-[55px]"></div>
     </div>
 
