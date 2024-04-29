@@ -48,12 +48,12 @@ function generateCalendar() {
 }
 
 function setToToday() {
-    date = new Date();
-    year = date.getFullYear();
-    month = date.getMonth();
-    generateCalendar();
-    manipulateCalendar(year, month);
-    updateMonthAndYear(year, month); // Update month and year when "today" is clicked
+  date = new Date();
+  year = date.getFullYear();
+  month = date.getMonth();
+  manipulateCalendar(year, month); 
+  generateCalendar(); 
+  updateMonthAndYear(year, month);
 }
 
 function drawBlankCalendar() {
@@ -95,19 +95,43 @@ function manipulateCalendar(year, month) {
         const dayNumber = day.querySelector('.day-number');
         const eventName = day.querySelector('.event-name');
 
+        let existingEvent = day.querySelector('.event');
+        if (existingEvent) {
+            day.removeChild(existingEvent);
+        }
+
+        // Load event for the date
+        let event = loadEvent(`${year}-${month}-${dayNumber.textContent}`);
+        if (event) {
+            let eventElement = document.createElement('p');
+            eventElement.classList.add('event');
+            eventElement.textContent = event;
+            day.appendChild(eventElement);
+
+            // Add event listener to remove event when clicked
+            eventElement.addEventListener('click', (e) => {
+                e.stopPropagation();
+                let confirmDelete = confirm('Are you sure you want to delete this event?');
+                if (confirmDelete) {
+                    removeEvent(`${year}-${month}-${dayNumber.textContent}`);
+                    manipulateCalendar(year, month);
+                }
+            });
+        }
+
         // Remove 'today' and 'inactive' class from all dates
         dayNumber.classList.remove('today');
         day.classList.remove('inactive');
 
         if (i < firstDayOfMonth) {
             dayNumber.textContent = daysInLastMonth - firstDayOfMonth + i + 1;
-            day.classList.add('inactive'); // Add 'inactive' class to previous month dates
+            day.classList.add('inactive');
         } else if (i >= firstDayOfMonth && i < firstDayOfMonth + daysInMonth) {
             dayNumber.textContent = dayCount;
             dayCount++;
         } else {
             dayNumber.textContent = nextMonthDayCount++;
-            day.classList.add('inactive'); // Add 'inactive' class to next month dates
+            day.classList.add('inactive'); 
         }
 
         if (i < 7) {
@@ -152,11 +176,63 @@ function changeMiniMonth(increment) {
 }
 
 function setupEventListeners() {
-    document.getElementById('today-button').addEventListener('click', setToToday);
+    document.getElementById('today-button').addEventListener('click',() => { setToToday(); setToToday(); });
     document.getElementById('nxt').addEventListener('click', () => changeMonth(1));
     document.getElementById('prev').addEventListener('click', () => changeMonth(-1));
     document.getElementById('calendar-prev').addEventListener('click', () => changeMiniMonth(-1));
     document.getElementById('calendar-next').addEventListener('click', () => changeMiniMonth(+1));
+
+    const dayElements = document.querySelectorAll('.day');
+    dayElements.forEach(day => {
+        day.addEventListener('click', () => {
+            let event = prompt('Enter event:');
+            if (event) {
+                let date = day.querySelector('.day-number').textContent;
+                let eventMonth = month;
+                let eventYear = year;
+
+                // If the day is from the previous month
+                if (day.classList.contains('inactive') && date > 7) {
+                    eventMonth--;
+                    if (eventMonth < 0) {
+                        eventMonth = 11;
+                        eventYear--;
+                    }
+                }
+
+                // If the day is from the next month
+                if (day.classList.contains('inactive') && date <= 7) {
+                    eventMonth++;
+                    if (eventMonth > 11) {
+                        eventMonth = 0;
+                        eventYear++;
+                    }
+                }
+
+                saveEvent(`${eventYear}-${eventMonth}-${date}`, event);
+                manipulateCalendar(year, month);
+            }
+        });
+    });
+}
+
+function saveEvent(date, event) {
+  let events = JSON.parse(localStorage.getItem('events')) || {};
+  events[date] = event;
+  localStorage.setItem('events', JSON.stringify(events));
+}
+
+function loadEvent(date) {
+  let events = JSON.parse(localStorage.getItem('events')) || {};
+  return events[date];
+}
+
+function removeEvent(date) {
+  let events = JSON.parse(localStorage.getItem('events')) || {};
+  if (events[date]) {
+      delete events[date];
+      localStorage.setItem('events', JSON.stringify(events));
+  }
 }
 
 updateMonthAndYear(year, month);
