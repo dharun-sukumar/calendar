@@ -1,242 +1,320 @@
-const months = ["January","February","March","April","May","June","July","August","September","October","November","December"];
+const header = document.querySelector(".mon");
+const headerMini = document.querySelector(".month");
+const dates = document.querySelector(".dates");
+const navs = document.querySelectorAll("#prev, #next");
+const navs1 = document.querySelectorAll("#previ, #nxt");
+
+const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+const days = ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"];
 
 let date = new Date();
-let year = date.getFullYear();
 let month = date.getMonth();
+let year = date.getFullYear();
 
-const day = document.querySelector(".calendar-dates");
-const currdate = document.querySelector(".calendar-current-date");
-const calendar = document.getElementById('calendar');
+function renderCalendar() {
+  const start = new Date(year, month, 1).getDay();
+  const endDate = new Date(year, month + 1, 0).getDate();
+  const end = new Date(year, month, endDate).getDay();
+  const endDatePrev = new Date(year, month, 0).getDate();
 
-function updateMonthAndYear(year, month) {
-    let monthName = months[month];
-    let years = year;
-    document.getElementById("month").innerHTML = monthName;
-    document.getElementById("year").innerHTML = years;
+  let datesHtml = "";
+
+  for (let i = start; i > 0; i--) {
+    datesHtml += `<li class="inactive">${endDatePrev - i + 1}</li>`;
+  }
+
+  for (let i = 1; i <= endDate; i++) {
+    let className =
+      i === date.getDate() &&
+      month === new Date().getMonth() &&
+      year === new Date().getFullYear()
+        ? ' class="today"'
+        : "";
+    datesHtml += `<li${className}>${i}</li>`;
+  }
+
+  for (let i = end; i < 13; i++) {
+    datesHtml += `<li class="inactive">${i - end + 1}</li>`;
+  }
+
+  dates.innerHTML = datesHtml;
+  headerMini.textContent = `${months[month]} ${year}`;
 }
 
+navs.forEach((nav) => {
+  nav.addEventListener("click", (e) => {
+    const btnId = e.target.id;
 
-function generateCalendar() {
-    let dayone = new Date(year, month, 1).getDay();
-    let lastdate = new Date(year, month + 1, 0).getDate();
-    let monthlastdate = new Date(year, month, 0).getDate();
-    let lit = "";
-
-    let today = new Date();
-    let todayDate = today.getDate();
-    let todayMonth = today.getMonth();
-    let todayYear = today.getFullYear();
-
-    for (let i = dayone; i > 0; i--) {
-        lit += `<li class="inactive">${monthlastdate - i + 1}</li>`;
+    if (btnId === "prev" && month === 0) {
+      year--;
+      month = 11;
+    } else if (btnId === "next" && month === 11) {
+      year++;
+      month = 0;
+    } else {
+      month = btnId === "next" ? month + 1 : month - 1;
     }
 
-    for (let i = 1; i <= lastdate; i++) {
-        let isToday = i === todayDate && month === todayMonth && year === todayYear ? "today" : "";
-        lit += `<li class="${isToday}">${i}</li>`;
+    date = new Date(year, month, new Date().getDate());
+    year = date.getFullYear();
+    month = date.getMonth();
+
+    renderCalendar();
+  });
+});
+
+renderCalendar();
+
+const datesMain = document.querySelector(".dates-main");
+
+function renderMainCalendar() {
+  const start = new Date(year, month, 1).getDay();
+  const endDate = new Date(year, month + 1, 0).getDate();
+  const end = new Date(year, month, endDate).getDay();
+  const endDatePrev = new Date(year, month, 0).getDate();
+  let totalDays = start + endDate + (6 - end);
+
+  let rows = Math.ceil(totalDays / 7);
+
+  let datesHtml = "";
+  let count = 0;
+
+  for (let i = start; i > 0; i--) {
+    if (rows === 6) {
+      datesHtml += `<div onclick="myFunction('${
+        (endDatePrev-i+1) + "-" + String(month) + "-" + year
+      }')"> ${days[count]} <li class="inactive">${
+        endDatePrev - i + 1
+      }</li> <div class="${
+        "d" + i + "-" + month + "-" + year + "-" + "0"
+      }"></div> <div class="${
+        "d" + i + "-" + month + "-" + year + "-" + "1"
+      }"></div><div class="${
+        "d" + i + "-" + month + "-" + year + "-" + "2"
+      }"></div> </div>`;
+      count++;
+
+      // done here working!!!!
+    } else {
+      datesHtml += `<div onclick="myFunction('${
+        (endDatePrev-i+1) + "-" + String(month) + "-" + year
+      }')"> ${days[count]} <li class="inactive">${
+        endDatePrev - i + 1
+      }</li> <div  class="${
+        "d" + i + "-" + month + "-" + year + "-" + "0"
+      }"></div> <div  class="${
+        "d" + i + "-" + month + "-" + year + "-" + "0"
+      }"></div> <div  class="${
+        "d" + i + "-" + month + "-" + year + "-" + "0"
+      }"></div> <div  class="${
+        "d" + i + "-" + month + "-" + year + "-" + "0"
+      }"></div>  </div>`;
+      count++;
+    }
+  }
+
+  // done completely working!!!!
+
+  for (let i = 1; i <= endDate; i++) {
+    let className =
+      i === date.getDate() &&
+      month === new Date().getMonth() &&
+      year === new Date().getFullYear()
+        ? ' class="today"'
+        : "";
+    if (rows === 6) {
+      if (count <= 6) {
+        datesHtml += `<div onclick="myFunction('${
+          (i) + "-" + String(month+1) + "-" + year
+        }')"> ${days[count]} <li${className}>${i}</li> <div class="${
+          "d" + i + "-" + month + "-" + year + "-" + "0"
+        }" ></div> <div class="${
+          "d" + i + "-" + month + "-" + year + "-" + "1"
+        }"></div> <div class="${
+          "d" + i + "-" + month + "-" + year + "-" + "2"
+        }"></div> </div>`;
+        count++;
+      } else {
+        datesHtml += `<div onclick="myFunction('${
+          (i) + "-" + String(month+1) + "-" + year
+        }')"><li${className}>${i}</li> <div class="${
+          "d" + i + "-" + month + "-" + year + "-" + "0"
+        }" ></div> <div class="${
+          "d" + i + "-" + month + "-" + year + "-" + "1"
+        }"></div> <div class="${
+          "d" + i + "-" + month + "-" + year + "-" + "2"
+        }"></div> </div>`;
+        count++;
+      }
+    } else {
+      if (count <= 6) {
+        datesHtml += `<div onclick="myFunction('${
+          (i) + "-" + String(month+1) + "-" + year
+        }')">${days[count]}<li${className}>${i}</li> <div  class="${
+          "d" + i + "-" + month + "-" + year + "-" + "0"
+        }"></div> <div  class="${
+          "d" + i + "-" + month + "-" + year + "-" + "0"
+        }"></div><div  class="${
+          "d" + i + "-" + month + "-" + year + "-" + "0"
+        }"></div> <div  class="${
+          "d" + i + "-" + month + "-" + year + "-" + "0"
+        }"></div> </div>`;
+        count++;
+      } else {
+        datesHtml += `<div onclick="myFunction('${
+          (i) + "-" + String(month+1) + "-" + year
+        }')"><li${className}>${i}</li> <div  class="${
+          "d" + i + "-" + month + "-" + year + "-" + "0"
+        }"></div> <div  class="${
+          "d" + i + "-" + month + "-" + year + "-" + "0"
+        }"></div> <div  class="${
+          "d" + i + "-" + month + "-" + year + "-" + "0"
+        }"></div> <div  class="${
+          "d" + i + "-" + month + "-" + year + "-" + "0"
+        }"></div> </div>`;
+        count++;
+      }
+    }
+  }
+
+  for (let i = end; i < 6; i++) {
+    if (rows == 6) {
+      datesHtml += `<div onclick="myFunction('${
+        (i-end+1) + "-" + String(month+2) + "-" + year
+      }')"> <li class="inactive">${
+        i - end + 1
+      }</li> <div class="${
+        "d" + i + "-" + month + "-" + year + "-" + "2"
+      }"></div> <div class="${
+        "d" + i + "-" + month + "-" + year + "-" + "2"
+      }"></div> <div class="${
+        "d" + i + "-" + month + "-" + year + "-" + "2"
+      }"></div> </div>`;
+    } else {
+      datesHtml += `<div onclick="myFunction('${
+        (i-end+1) + "-" + String(month+2) + "-" + year
+      }')"> <li class="inactive">${
+        i - end + 1
+      }</li> <div  class="${
+        "d" + i + "-" + month + "-" + year + "-" + "0"
+      }"></div> <div  class="${
+        "d" + i + "-" + month + "-" + year + "-" + "0"
+      }"></div> <div  class="${
+        "d" + i + "-" + month + "-" + year + "-" + "0"
+      }"></div> <div  class="${
+        "d" + i + "-" + month + "-" + year + "-" + "0"
+      }"></div> </div>`;
+    }
+  }
+
+  datesMain.innerHTML = datesHtml;
+  header.textContent = `${months[month]} ${year}`;
+  headerMini.textContent = `${months[month]} ${year}`;
+  renderCalendar();
+}
+
+navs1.forEach((nav) => {
+  nav.addEventListener("click", (e) => {
+    const btnId = e.target.id;
+
+    if (btnId === "previ" && month === 0) {
+      year--;
+      month = 11;
+    } else if (btnId === "nxt" && month === 11) {
+      year++;
+      month = 0;
+    } else {
+      month = btnId === "nxt" ? month + 1 : month - 1;
     }
 
-    let totalDays = dayone + lastdate;
-    let remainingDays = 42 - totalDays;
+    date = new Date(year, month, new Date().getDate());
+    year = date.getFullYear();
+    month = date.getMonth();
 
-    for (let i = 1; i <= remainingDays; i++) {
-        lit += `<li class="inactive">${i}</li>`;
+    renderMainCalendar();
+  });
+});
+
+renderMainCalendar();
+
+document.getElementById("today-button").addEventListener("click", () => {
+  const today = new Date();
+  year = today.getFullYear();
+  month = today.getMonth();
+  renderMainCalendar();
+});
+
+function convertDateFormat(dateStr) {
+  const [day, month, year] = dateStr.split('-');
+  const formattedDay = day.padStart(2, '0');
+  const formattedMonth = month.padStart(2, '0');
+  return `${year}-${formattedMonth}-${formattedDay}`;
+}
+
+
+function myFunction(i) {
+  val = convertDateFormat(i);
+  console.log("i", val)
+  const el = document.querySelector(`.d${String(i)}-0`);
+  const el2 = document.querySelector(`.d${String(i)}-1`);
+  const el3 = document.querySelector(`.d${String(i)}-2`);
+
+  var modal = document.getElementById("myModal");
+  var span = document.getElementsByClassName("close")[0];
+
+  span.onclick = function() {
+    modal.style.display = "none";
+  }
+
+  window.onclick = function(event) {
+    if (event.target == modal) {
+      modal.style.display = "none";
+    }
+  }
+  
+  modal.style.display = "block";
+  const alarmDateInput = document.getElementById('alarmDate');
+  alarmDateInput.defaultValue=val//done
+
+  document.getElementById('eventForm').onsubmit = function(e) {
+    e.preventDefault();
+    let event = document.getElementById('event').value;
+    let eventTime = document.getElementById('time').value;
+
+
+    if (el.innerHTML === "") {
+      el.innerHTML = `${event} at ${eventTime}`;
+      el.classList.add("active");
+    } else if (el2.innerHTML === "") {
+      el2.innerHTML = `${event} at ${eventTime}`;
+      el2.classList.add("active");
+    } else if (el3.innerHTML === "") {
+      el3.innerHTML = `${event} at ${eventTime}`;
+      el3.classList.add("active");
     }
 
-    currdate.innerText = `${months[month]} ${year}`;
-    day.innerHTML = lit;
-}
-
-function setToToday() {
-  date = new Date();
-  year = date.getFullYear();
-  month = date.getMonth();
-  manipulateCalendar(year, month); 
-  generateCalendar(); 
-  updateMonthAndYear(year, month);
-}
-
-function drawBlankCalendar() {
-    for (let i = 0; i < 35; i++) {
-        const day = document.createElement('div');
-        day.classList.add('day');
-
-        const dayText = document.createElement('p');
-        dayText.classList.add('day-text');
-
-        const dayNumber = document.createElement('p');
-        dayNumber.classList.add('day-number');
-
-        const eventName = document.createElement('p');
-        eventName.classList.add('event-name');
-
-        day.appendChild(eventName);
-        day.appendChild(dayText);
-        day.appendChild(dayNumber);
-        calendar.appendChild(day);
-    }
-}
-
-function manipulateCalendar(year, month) {
-    const dayElements = document.querySelectorAll('.day');
-    const firstDayOfMonth = new Date(year, month, 1).getDay();
-    const daysInMonth = new Date(year, month + 1, 0).getDate();
-    const daysInLastMonth = new Date(year, month, 0).getDate();
-
-    let dayCount = 1;
-    let nextMonthDayCount = 1;
-
-    const days = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'];
-
-    const today = new Date();
-
-    for (let i = 0; i < 35; i++) {
-        const day = dayElements[i]; 
-        const dayNumber = day.querySelector('.day-number');
-        const eventName = day.querySelector('.event-name');
-
-        let existingEvent = day.querySelector('.event');
-        if (existingEvent) {
-            day.removeChild(existingEvent);
-        }
-
-        // Load event for the date
-        let event = loadEvent(`${year}-${month}-${dayNumber.textContent}`);
-        if (event) {
-            let eventElement = document.createElement('p');
-            eventElement.classList.add('event');
-            eventElement.textContent = event;
-            day.appendChild(eventElement);
-
-            // Add event listener to remove event when clicked
-            eventElement.addEventListener('click', (e) => {
-                e.stopPropagation();
-                let confirmDelete = confirm('Are you sure you want to delete this event?');
-                if (confirmDelete) {
-                    removeEvent(`${year}-${month}-${dayNumber.textContent}`);
-                    manipulateCalendar(year, month);
-                }
-            });
-        }
-
-        // Remove 'today' and 'inactive' class from all dates
-        dayNumber.classList.remove('today');
-        day.classList.remove('inactive');
-
-        if (i < firstDayOfMonth) {
-            dayNumber.textContent = daysInLastMonth - firstDayOfMonth + i + 1;
-            day.classList.add('inactive');
-        } else if (i >= firstDayOfMonth && i < firstDayOfMonth + daysInMonth) {
-            dayNumber.textContent = dayCount;
-            dayCount++;
-        } else {
-            dayNumber.textContent = nextMonthDayCount++;
-            day.classList.add('inactive'); 
-        }
-
-        if (i < 7) {
-            eventName.textContent = days[i % 7];
-        }
-
-        // Check if the date is today's date for the current month and year
-        if (year === today.getFullYear() && month === today.getMonth() && parseInt(dayNumber.textContent) === today.getDate()) {
-            dayNumber.classList.add('today'); // Add 'today' class to the 'day-number' element if it is the current date
-        }
-    }
-}
-
-function changeMonth(increment) {
-    month += increment;
-    if (month > 11) {
-        month = 0;
-        year++;
-    } else if (month < 0) {
-        month = 11;
-        year--;
-    }
-    date.setFullYear(year);
-    date.setMonth(month);
-    manipulateCalendar(year, month);
-    generateCalendar();
-    updateMonthAndYear(year, month); // Pass year and month as parameters
-}
-
-function changeMiniMonth(increment) {
-    month += increment;
-    if (month > 11) {
-        month = 0;
-        year++;
-    } else if (month < 0) {
-        month = 11;
-        year--;
-    }
-    date.setFullYear(year);
-    date.setMonth(month);
-    generateCalendar();
-}
-
-function setupEventListeners() {
-    document.getElementById('today-button').addEventListener('click',() => { setToToday(); setToToday(); });
-    document.getElementById('nxt').addEventListener('click', () => changeMonth(1));
-    document.getElementById('prev').addEventListener('click', () => changeMonth(-1));
-    document.getElementById('calendar-prev').addEventListener('click', () => changeMiniMonth(-1));
-    document.getElementById('calendar-next').addEventListener('click', () => changeMiniMonth(+1));
-
-    const dayElements = document.querySelectorAll('.day');
-    dayElements.forEach(day => {
-        day.addEventListener('click', () => {
-            let event = prompt('Enter event:');
-            if (event) {
-                let date = day.querySelector('.day-number').textContent;
-                let eventMonth = month;
-                let eventYear = year;
-
-                // If the day is from the previous month
-                if (day.classList.contains('inactive') && date > 7) {
-                    eventMonth--;
-                    if (eventMonth < 0) {
-                        eventMonth = 11;
-                        eventYear--;
-                    }
-                }
-
-                // If the day is from the next month
-                if (day.classList.contains('inactive') && date <= 7) {
-                    eventMonth++;
-                    if (eventMonth > 11) {
-                        eventMonth = 0;
-                        eventYear++;
-                    }
-                }
-
-                saveEvent(`${eventYear}-${eventMonth}-${date}`, event);
-                manipulateCalendar(year, month);
-            }
-        });
-    });
-}
-
-function saveEvent(date, event) {
-  let events = JSON.parse(localStorage.getItem('events')) || {};
-  events[date] = event;
-  localStorage.setItem('events', JSON.stringify(events));
-}
-
-function loadEvent(date) {
-  let events = JSON.parse(localStorage.getItem('events')) || {};
-  return events[date];
-}
-
-function removeEvent(date) {
-  let events = JSON.parse(localStorage.getItem('events')) || {};
-  if (events[date]) {
-      delete events[date];
-      localStorage.setItem('events', JSON.stringify(events));
+    // Hide the modal
+    modal.style.display = "none";
   }
 }
 
-updateMonthAndYear(year, month);
-generateCalendar();
-drawBlankCalendar();
-manipulateCalendar(year, month);
-setupEventListeners();
+function setAlarm() {
+  const alarmDateInput = document.getElementById('alarmDate');
+  const alarmTimeInput = document.getElementById('alarmTime'); 
+  
+  const alarmDateTime = new Date(`${alarmDateInput.value}T${alarmTimeInput.value}:00`);
+  console.log(alarmDateInput.value)
+  console.log(alarmTimeInput.value)
+  console.log(alarmDateTime);
+  const now = new Date();
+
+  if (alarmDateTime <= now) {
+    alert('Please select a future date and time for the alarm.');
+    return;
+  }
+
+  const timeUntilAlarm = alarmDateTime - now;
+  setTimeout(() => {
+    alert('Alarm! It is time.');
+  }, timeUntilAlarm);
+}

@@ -41,12 +41,20 @@
           >
             Today
           </button>
-          <span class="material-symbols-outlined mr-2 ml-6 cursor-pointer nav" id="prev">
+          <span
+            class="material-symbols-outlined mr-2 ml-6 cursor-pointer nav"
+            id="previ"
+          >
             chevron_left
           </span>
-          <span class="material-symbols-outlined nxt cursor-pointer nav" id="nxt"> chevron_right </span>
+          <span
+            class="material-symbols-outlined nxt cursor-pointer nav"
+            id="nxt"
+          >
+            chevron_right
+          </span>
           <span class="ml-6 text-2xl mr-1" id="month"></span>
-          <span class="text-2xl" id="year"></span>
+          <div class="mon text-lg"></div>
         </div>
 
         <div class="flex items-center">
@@ -55,7 +63,9 @@
           <span class="material-symbols-outlined p-3"> settings </span>
           <div class="flex items-center justify-center border rounded-md ml-2">
             <div class="pl-3 rounded-md text-sm">Month</div>
-            <span class="material-symbols-outlined pt-1 pr-2 pl-2 pb-1 cursor-pointer">
+            <span
+              class="material-symbols-outlined pt-1 pr-2 pl-2 pb-1 cursor-pointer"
+            >
               arrow_drop_down
             </span>
           </div>
@@ -89,9 +99,10 @@
     <hr />
     <!-- end of div3 -->
     <!-- end of navbar -->
+
     <div class="flex">
       <!-- start of sidebar -->
-      <div class="flex flex-col w-[265px] border-r-2">
+      <div class="flex flex-col w-[17vw] border-r-2">
         <div
           class="flex p-3 drop-shadow-md gap-4 border rounded-full w-[160px] m-3"
         >
@@ -101,22 +112,26 @@
         </div>
 
         <!-- calendar  -->
-        <div class="calendar-container flex flex-col font-medium ml-6 mr-6">
-          <header class="flex items-center justify-between">
-            <p class="calendar-current-date ml-3 mr-3"></p>
-            <div class="flex calendar-navigation">
-              <span class="material-symbols-outlined" id="calendar-prev">
+        <div class="calendar">
+          <header>
+            <div class="month"></div>
+            <nav>
+              <span
+                class="material-symbols-outlined mr-2 h-1 w-1 cursor-pointer"
+                id="prev"
+              >
                 chevron_left
               </span>
-
-              <span class="material-symbols-outlined" id="calendar-next">
+              <span
+                class="material-symbols-outlined mr-1 h-1 w-1 cursor-pointer"
+                id="next"
+              >
                 chevron_right
               </span>
-            </div>
+            </nav>
           </header>
-
-          <div class="calendar-body text-[10px]">
-            <ul class="calendar-weekdays xyz">
+          <section>
+            <ul class="days">
               <li>S</li>
               <li>M</li>
               <li>T</li>
@@ -125,22 +140,31 @@
               <li>F</li>
               <li>S</li>
             </ul>
-            <ul class="calendar-dates"></ul>
-          </div>
+            <ul class="dates"></ul>
+          </section>
         </div>
+        <!-- End of sidebar -->
       </div>
-      <!-- End of sidebar -->
-
       <!-- start of main content -->
-      <div id="calendar" class="text-sm"></div>
-      <div class="flex flex-col h-[92vh] w-[55px]"></div>
+      <section class="cal-container">
+        <div class="cal">
+          <ul class="days-main"></ul>
+          <ul class="dates-main"></ul>
+        </div>
+      </section>
     </div>
-    <div id="event-form" style="display: none;">
-      <input type="text" id="event-name" placeholder="Event Name">
-      <input type="time" id="event-time">
-      <button id="save-event">Save Event</button>
-  </div>
-
+    <div id="myModal" class="modal">
+      <div class="modal-content">
+        <span class="close">&times;</span>
+        <form id="eventForm">
+          <label for="alarmDate">Select Date:</label>
+          <input type="date" id="alarmDate" /><br /><br />
+          <label for="alarmTime">Select Time:</label>
+          <input type="time" id="alarmTime" /><br /><br />
+          <button onclick="setAlarm()">Set Alarm</button>
+        </form>
+      </div>
+    </div>
     <script src="script.js"></script>
   </body>
 </html>
