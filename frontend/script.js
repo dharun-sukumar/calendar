@@ -86,11 +86,11 @@ function renderMainCalendar() {
       }')"> ${days[count]} <li class="inactive">${
         endDatePrev - i + 1
       }</li> <div class="${
-        "d" + i + "-" + month + "-" + year + "-" + "0"
+        "d" + (endDatePrev-i+1) + "-" + month + "-" + year + "-" + "0"
       }"></div> <div class="${
-        "d" + i + "-" + month + "-" + year + "-" + "1"
+        "d" + (endDatePrev-i+1) + "-" + month + "-" + year + "-" + "1"
       }"></div><div class="${
-        "d" + i + "-" + month + "-" + year + "-" + "2"
+        "d" + (endDatePrev-i+1) + "-" + month + "-" + year + "-" + "2"
       }"></div> </div>`;
       count++;
 
@@ -101,13 +101,13 @@ function renderMainCalendar() {
       }')"> ${days[count]} <li class="inactive">${
         endDatePrev - i + 1
       }</li> <div  class="${
-        "d" + i + "-" + month + "-" + year + "-" + "0"
+        "d" + (endDatePrev-i+1) + "-" + month + "-" + year + "-" + "0"
       }"></div> <div  class="${
-        "d" + i + "-" + month + "-" + year + "-" + "0"
+        "d" + (endDatePrev-i+1) + "-" + month + "-" + year + "-" + "1"
       }"></div> <div  class="${
-        "d" + i + "-" + month + "-" + year + "-" + "0"
+        "d" + (endDatePrev-i+1) + "-" + month + "-" + year + "-" + "2"
       }"></div> <div  class="${
-        "d" + i + "-" + month + "-" + year + "-" + "0"
+        "d" + (endDatePrev-i+1) + "-" + month + "-" + year + "-" + "3"
       }"></div>  </div>`;
       count++;
     }
@@ -127,22 +127,22 @@ function renderMainCalendar() {
         datesHtml += `<div onclick="myFunction('${
           (i) + "-" + String(month+1) + "-" + year
         }')"> ${days[count]} <li${className}>${i}</li> <div class="${
-          "d" + i + "-" + month + "-" + year + "-" + "0"
+          "d" + i + "-" + String(month+1) + "-" + year + "-" + "0"
         }" ></div> <div class="${
-          "d" + i + "-" + month + "-" + year + "-" + "1"
+          "d" + i + "-" + String(month+1) + "-" + year + "-" + "1"
         }"></div> <div class="${
-          "d" + i + "-" + month + "-" + year + "-" + "2"
+          "d" + i + "-" + String(month+1) + "-" + year + "-" + "2"
         }"></div> </div>`;
         count++;
       } else {
         datesHtml += `<div onclick="myFunction('${
           (i) + "-" + String(month+1) + "-" + year
         }')"><li${className}>${i}</li> <div class="${
-          "d" + i + "-" + month + "-" + year + "-" + "0"
+          "d" + i + "-" + String(month+1) + "-" + year + "-" + "0"
         }" ></div> <div class="${
-          "d" + i + "-" + month + "-" + year + "-" + "1"
+          "d" + i + "-" + String(month+1) + "-" + year + "-" + "1"
         }"></div> <div class="${
-          "d" + i + "-" + month + "-" + year + "-" + "2"
+          "d" + i + "-" + String(month+1) + "-" + year + "-" + "2"
         }"></div> </div>`;
         count++;
       }
@@ -151,26 +151,26 @@ function renderMainCalendar() {
         datesHtml += `<div onclick="myFunction('${
           (i) + "-" + String(month+1) + "-" + year
         }')">${days[count]}<li${className}>${i}</li> <div  class="${
-          "d" + i + "-" + month + "-" + year + "-" + "0"
+          "d" + i + "-" + String(month+1) + "-" + year + "-" + "0"
         }"></div> <div  class="${
-          "d" + i + "-" + month + "-" + year + "-" + "0"
+          "d" + i + "-" + String(month+1) + "-" + year + "-" + "1"
         }"></div><div  class="${
-          "d" + i + "-" + month + "-" + year + "-" + "0"
+          "d" + i + "-" + String(month+1) + "-" + year + "-" + "2"
         }"></div> <div  class="${
-          "d" + i + "-" + month + "-" + year + "-" + "0"
+          "d" + i + "-" + String(month +1) + "-" + year + "-" + "3"
         }"></div> </div>`;
         count++;
       } else {
         datesHtml += `<div onclick="myFunction('${
           (i) + "-" + String(month+1) + "-" + year
         }')"><li${className}>${i}</li> <div  class="${
-          "d" + i + "-" + month + "-" + year + "-" + "0"
+          "d" + i + "-" + String(month+1) + "-" + year + "-" + "0"
         }"></div> <div  class="${
-          "d" + i + "-" + month + "-" + year + "-" + "0"
+          "d" + i + "-" + String(month+1) + "-" + year + "-" + "1"
         }"></div> <div  class="${
-          "d" + i + "-" + month + "-" + year + "-" + "0"
+          "d" + i + "-" + String(month+1) + "-" + year + "-" + "2"
         }"></div> <div  class="${
-          "d" + i + "-" + month + "-" + year + "-" + "0"
+          "d" + i + "-" + String(month+1) + "-" + year + "-" + "3"
         }"></div> </div>`;
         count++;
       }
@@ -184,11 +184,11 @@ function renderMainCalendar() {
       }')"> <li class="inactive">${
         i - end + 1
       }</li> <div class="${
-        "d" + i + "-" + month + "-" + year + "-" + "2"
+        "d" + (i-end+1) + "-" + String(month+2) + "-" + year + "-" + "0"
       }"></div> <div class="${
-        "d" + i + "-" + month + "-" + year + "-" + "2"
+        "d" + (i-end+1) + "-" + String(month+2) + "-" + year + "-" + "1"
       }"></div> <div class="${
-        "d" + i + "-" + month + "-" + year + "-" + "2"
+        "d" + (i-end+1) + "-" + String(month+2) + "-" + year + "-" + "2"
       }"></div> </div>`;
     } else {
       datesHtml += `<div onclick="myFunction('${
@@ -196,13 +196,13 @@ function renderMainCalendar() {
       }')"> <li class="inactive">${
         i - end + 1
       }</li> <div  class="${
-        "d" + i + "-" + month + "-" + year + "-" + "0"
+        "d" + (i-end+1) + "-" + String(month+2) + "-" + year + "-" + "0"
       }"></div> <div  class="${
-        "d" + i + "-" + month + "-" + year + "-" + "0"
+        "d" + (i-end+1) + "-" + String(month+2) + "-" + year + "-" + "1"
       }"></div> <div  class="${
-        "d" + i + "-" + month + "-" + year + "-" + "0"
+        "d" + (i-end+1) + "-" + String(month+2) + "-" + year + "-" + "2"
       }"></div> <div  class="${
-        "d" + i + "-" + month + "-" + year + "-" + "0"
+        "d" + (i-end+1) + "-" + String(month+2) + "-" + year + "-" + "3"
       }"></div> </div>`;
     }
   }
@@ -253,12 +253,26 @@ function convertDateFormat(dateStr) {
 
 
 function myFunction(i) {
-  val = convertDateFormat(i);
-  console.log("i", val)
+  console.log(i)
   const el = document.querySelector(`.d${String(i)}-0`);
   const el2 = document.querySelector(`.d${String(i)}-1`);
   const el3 = document.querySelector(`.d${String(i)}-2`);
 
+  console.log("bla bla", el, el2, el3)
+
+  if (el.innerHTML === "") {
+    el.innerHTML = `Event at ""`;
+    el.classList.add("active");
+  } else if (el2.innerHTML === "") {
+    el2.innerHTML = `Event at ""`;
+    el2.classList.add("active");
+  } else if (el3.innerHTML === "") {
+    el3.innerHTML = `event at ""`;
+    el3.classList.add("active");
+  }
+  
+  val = convertDateFormat(i);
+  console.log("val", val)
   var modal = document.getElementById("myModal");
   var span = document.getElementsByClassName("close")[0];
 
@@ -278,22 +292,6 @@ function myFunction(i) {
 
   document.getElementById('eventForm').onsubmit = function(e) {
     e.preventDefault();
-    let event = document.getElementById('event').value;
-    let eventTime = document.getElementById('time').value;
-
-
-    if (el.innerHTML === "") {
-      el.innerHTML = `${event} at ${eventTime}`;
-      el.classList.add("active");
-    } else if (el2.innerHTML === "") {
-      el2.innerHTML = `${event} at ${eventTime}`;
-      el2.classList.add("active");
-    } else if (el3.innerHTML === "") {
-      el3.innerHTML = `${event} at ${eventTime}`;
-      el3.classList.add("active");
-    }
-
-    // Hide the modal
     modal.style.display = "none";
   }
 }
