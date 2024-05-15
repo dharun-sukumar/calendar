@@ -259,60 +259,93 @@ function myFunction(i) {
   const el3 = document.querySelector(`.d${String(i)}-2`);
 
   console.log("bla bla", el, el2, el3)
+  val = convertDateFormat(i);
 
   if (el.innerHTML === "") {
-    el.innerHTML = `Event at ""`;
+    el.innerHTML = `(No title)`;
     el.classList.add("active");
   } else if (el2.innerHTML === "") {
-    el2.innerHTML = `Event at ""`;
+    el2.innerHTML = `(No title)`;
     el2.classList.add("active");
   } else if (el3.innerHTML === "") {
-    el3.innerHTML = `event at ""`;
+    el3.innerHTML = `(No title)`;
     el3.classList.add("active");
   }
   
-  val = convertDateFormat(i);
   console.log("val", val)
   var modal = document.getElementById("myModal");
   var span = document.getElementsByClassName("close")[0];
 
   span.onclick = function() {
     modal.style.display = "none";
+    if (el.innerHTML === "(No title)") {
+      el.innerHTML = "";
+      el.classList.remove("active");
+    } else if (el2.innerHTML === "(No title)") {
+      el2.innerHTML = "";
+      el2.classList.t.remove("active");
+    } else if (el3.innerHTML === "(No title)") {
+      el3.innerHTML = "";
+      el3.classList.t.remove("active");
+    }
   }
 
   window.onclick = function(event) {
     if (event.target == modal) {
       modal.style.display = "none";
+      if (el.innerHTML === "(No title)") {
+        el.innerHTML = "";
+        el.classList.remove("active");
+      } else if (el2.innerHTML === "(No title)") {
+        el2.innerHTML = "";
+        el2.classList.t.remove("active");
+      } else if (el3.innerHTML === "(No title)") {
+        el3.innerHTML = "";
+        el3.classList.t.remove("active");
+      }
     }
   }
   
   modal.style.display = "block";
   const alarmDateInput = document.getElementById('alarmDate');
-  alarmDateInput.defaultValue=val//done
+  alarmDateInput.defaultValue=val;
 
   document.getElementById('eventForm').onsubmit = function(e) {
     e.preventDefault();
     modal.style.display = "none";
   }
-}
 
-function setAlarm() {
-  const alarmDateInput = document.getElementById('alarmDate');
-  const alarmTimeInput = document.getElementById('alarmTime'); 
-  
-  const alarmDateTime = new Date(`${alarmDateInput.value}T${alarmTimeInput.value}:00`);
-  console.log(alarmDateInput.value)
-  console.log(alarmTimeInput.value)
-  console.log(alarmDateTime);
-  const now = new Date();
-
-  if (alarmDateTime <= now) {
-    alert('Please select a future date and time for the alarm.');
-    return;
+  document.getElementById('save').onclick = function() {
+    setAlarm(val, i);
+    modal.style.display = "none";
   }
+  function setAlarm(val, i) {
+    console.log(i)
+    const alarmTimeInput = document.getElementById('alarmTime'); 
+    const eventName = document.getElementById('EventName').value;
+    console.log(val)
+    const alarmDateTime = new Date(`${val}T${alarmTimeInput.value}:00`);
+    const now = new Date();
+  
+    if (alarmDateTime <= now) {
+      alert('Please select a future date and time for the alarm.');
+      return;
+    }
+  
+    if (el.innerHTML === "(No title)") {
+      el.innerHTML = eventName;
+      el.classList.add("active");
+    } else if (el2.innerHTML === "(No title)") {
+      el2.innerHTML = eventName;
+      el2.classList.add("active");
+    } else if (el3.innerHTML === "(No title)") {
+      el3.innerHTML = eventName;
+      el3.classList.add("active");
+    }
 
-  const timeUntilAlarm = alarmDateTime - now;
-  setTimeout(() => {
-    alert('Alarm! It is time.');
-  }, timeUntilAlarm);
+      const timeUntilAlarm = alarmDateTime - now;
+      setTimeout(() => {
+        alert('Alarm! It is time.');
+      }, timeUntilAlarm);
+    }
 }
