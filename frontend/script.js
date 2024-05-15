@@ -328,7 +328,7 @@ function myFunction(i) {
     const now = new Date();
   
     if (alarmDateTime <= now) {
-      alert('Please select a future date and time for the alarm.');
+      alert('past');
       return;
     }
   
